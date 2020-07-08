@@ -1,0 +1,14 @@
+{
+  "name": "media",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "ipfs daemon"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ipfs-deploy": "^7.14.0"
+  }
+}
