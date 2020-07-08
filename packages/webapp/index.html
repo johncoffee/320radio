@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" class="height-100">
+<head>
+    <meta charset="UTF-8">
+    <title>music</title>
+    <script src="src/main.js" type="module"></script>
+
+    <style>
+        @import "node_modules/foundation-sites/dist/css/foundation.min.css";
+        @import "node_modules/foundation-sites/dist/css/foundation-prototype.min.css";
+    </style>
+    <style>
+        :root {
+            --red: #ff4864;
+            --black: rgba(26,26,26,.8);
+            --blackDarker: rgba(0,0,0, 0.8);
+        }
+
+        .bgimg {
+            background-image: url("//127.0.0.1:8080/ipfs/QmYcq35sL8y7sukLdRKE6BZbQMyvStAeHjEdYq2cLASXuG");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .button {
+            transition: none;
+            text-transform: uppercase;
+            border: none;
+        }
+
+        body {
+            background: #222;
+            color: #fff;
+        }
+
+        .button.primary:focus,
+        .button.primary:hover {
+            /*background-color: var(--blackDarker);*/
+            color: #fff;
+            background-image: linear-gradient( 109.6deg,  rgba(255,24,134,1) 11.2%, rgba(252,232,68,1) 52%, rgba(53,178,239,1) 100.2% );
+            text-shadow: 1px 1px 2px #000;
+        }
+
+        .button.primary {background-color: var(--black);}
+
+        .media__title {
+            background-color: var(--black);
+            color: #fff;
+        }
+
+        .logo {
+            display: inline-block;
+            background: transparent url("//320colab.com/img/logo.png") no-repeat center center;
+            background-size: 93.3%;
+            height: 3.9rem;
+            width: 166px;
+        }
+
+    </style>
+</head>
+<body class="height-100 bgimg">
+
+<div class="grid-container full height-100">
+    <div class="grid-y height-100">
+        <div class="cell shrink">
+            <span class="logo margin-vertical-1"></span>
+        </div>
+        <div class="cell auto">
+
+            <div class="grid-y height-100 align-center">
+                <div class="cell">
+                    <div class="grid-x grid-padding-x">
+                        <div class="cell large-6 medium-offset-1">
+                            <div class="radio-component"></div>
+                            <div class="tip-component"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="cell shrink">
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
