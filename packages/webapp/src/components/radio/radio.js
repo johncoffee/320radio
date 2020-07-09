@@ -17,6 +17,10 @@ const myTemplate = ({title, artist}) => html`
 </div>
 `;
 
+export function play() {
+  document.querySelector('audio').play()
+}
+
 export function render () {
   litRender(myTemplate({
     artist: 'Night Owl',

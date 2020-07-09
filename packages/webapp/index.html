@@ -55,12 +55,36 @@
             width: 166px;
         }
 
+        /*temp override*/
+        .hide {
+            display: none
+        }
+
+        .page-intro {
+            background: #112;
+        }
     </style>
 </head>
 <body class="height-100 bgimg">
 
 <div class="grid-container full height-100">
-    <div class="grid-y height-100">
+    <div class="grid-y height-100 page page-intro align-center">
+        <div class="cell shrink">
+        </div>
+        <div class="cell">
+
+            <div class="grid-x align-center">
+                <div class="cell shrink">
+                    <div class="start-logo"></div>
+                </div>
+            </div>
+
+        </div>
+        <div class="cell shrink">
+        </div>
+    </div>
+
+    <div class="grid-y height-100 page page-radio hide">
         <div class="cell shrink">
             <span class="logo margin-vertical-1"></span>
         </div>
