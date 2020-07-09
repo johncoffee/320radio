@@ -99,15 +99,8 @@ export function getAccount() {
   return currentAccount
 }
 
-const names = {
-  '0x1': 'Ethereum',
-  '0x01': "Ethereum",
-  '0x2a': "Kovan",
-  '42': "Kovan",
-}
-
-export function getChain() {
-  return names[currentChainId] || currentChainId
+export function getChainId() {
+  return currentChainId
 }
 
 export function connect () {
