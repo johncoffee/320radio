@@ -1,0 +1,4 @@
+# installation
+
+`npx lerna bootstrap`
+

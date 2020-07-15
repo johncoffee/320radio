@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>music</title>
+    <script src="node_modules/rxjs/dist/bundles/rxjs.umd.js"></script>
     <script src="src/main.js" type="module"></script>
 
     <style>
@@ -17,7 +18,7 @@
         }
 
         .bgimg {
-            background-image: url("//127.0.0.1:8080/ipfs/QmYcq35sL8y7sukLdRKE6BZbQMyvStAeHjEdYq2cLASXuG");
+            background-image: url("//0.0.0.0:8080/ipfs/rafael-romero-8yaG5_PUz9s-unsplash.jpg");
             background-repeat: no-repeat;
             background-size: cover;
         }
@@ -68,7 +69,7 @@
 <body class="height-100 bgimg">
 
 <div class="grid-container full height-100">
-    <div class="grid-y height-100 page page-intro align-center">
+    <div class="grid-y height-100 align-center page hide page-intro">
         <div class="cell shrink">
         </div>
         <div class="cell">
@@ -84,7 +85,7 @@
         </div>
     </div>
 
-    <div class="grid-y height-100 page page-radio hide">
+    <div class="grid-y height-100 page hide page-radio">
         <div class="cell shrink">
             <span class="logo margin-vertical-1"></span>
         </div>
