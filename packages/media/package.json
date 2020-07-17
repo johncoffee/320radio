@@ -3,8 +3,7 @@
   "version": "1.0.1",
   "description": "",
   "scripts": {
-    "setup": "ln -s public ipfs",
-    "start": "npx http-server --cors -p 8080 ./"
+    "start": "npx http-server -p 8080 ."
   },
   "author": "",
   "license": "ISC",
