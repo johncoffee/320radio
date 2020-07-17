@@ -1,0 +1,3 @@
+**/*
+!build/contracts/*
+build/contracts/Migrations.json
