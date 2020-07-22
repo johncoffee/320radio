@@ -22,6 +22,9 @@ export function connect (store) {
   store.subscribe(s => {
     render(s.track)
 
+    document.querySelector('.bgimg').style.backgroundImage = (s.track.coverImage) ?
+      `url(${s.track.coverImage})` : 'none'
+
     // default track
     if (!s.track.mp3) {
       play()
@@ -34,6 +37,7 @@ export function play () {
     artist: 'Turing',
     title: 'Stutter',
     mp3: '//127.0.0.1:8080/ipfs/QmPTjFUhaufnctdxSv8oThzvFrnNookD57q99GpkW5Db6g/Turing - Stutter-839941489.mp3',
+    coverImage: "//127.0.0.1:8080/ipfs/QmPTjFUhaufnctdxSv8oThzvFrnNookD57q99GpkW5Db6g/rafael-romero-8yaG5_PUz9s-unsplash.jpg",
     // artist: '320',
     // title: "open jam june 15th",
   })
