@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ganache-cli --networkId 1337"
+    "ganache": "ganache-cli --networkId 1337"
   },
   "author": "",
   "license": "ISC",
