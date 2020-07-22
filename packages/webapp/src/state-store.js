@@ -4,6 +4,10 @@ const { Subject, Observable, isObservable, pipe } = window.rxjs
 const { startWith, scan } = window.rxjs.operators
 
 const initialState = {
+  playlist: {
+    playlist: [],
+    index: 0,
+  },
   track: {},
   page: '',
 }
@@ -29,10 +33,30 @@ export const actionCreator = (func) => (...args) => {
   return action
 }
 
-export const SET_TRACK = 'SET_TRACK'
-export const setTrack = actionCreator((payload) => ({
-  type: SET_TRACK,
+export const SET_PLAYLIST = 'SET_PLAYLIST'
+export const setPlayList = actionCreator((payload) => ({
+  type: SET_PLAYLIST,
   payload
+}))
+
+export const SET_TRACK = 'SET_TRACK'
+export const setTrack = actionCreator((track) => {
+
+  document.querySelector('.bgimg').style.backgroundImage = (track.coverImage) ?
+    `url(${track.coverImage})` : 'none'
+
+  document.title = `${track.artist} - ${track.title}`
+
+  return {
+    type: SET_TRACK,
+    payload: track
+  }
+})
+
+export const SKIP_TRACK = 'SKIP_TRACK'
+export const skipTrack = actionCreator((payload) => ({
+  type: SKIP_TRACK,
+  payload,
 }))
 
 export const SET_PAGE = 'SET_PAGE'
@@ -42,8 +66,21 @@ export const setPage = actionCreator((payload) => ({
 }))
 
 export function reducer(state, action) {
-  console.log(action.type, state, action)
+  // console.log(action.type, state, action)
   switch (action.type) {
+      case SKIP_TRACK:
+      state.playlist.index = action.payload
+      return {
+        ...state,
+      }
+    case SET_PLAYLIST:
+      return {
+        ...state,
+        playlist: {
+          playlist: action.payload,
+          index: 0,
+        }
+      }
     case SET_PAGE:
       return {
         ...state,
