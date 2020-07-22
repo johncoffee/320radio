@@ -14,3 +14,7 @@ const myTemplate = () => html`
 export function render () {
   litRender(myTemplate(), document.querySelector('.start-logo'))
 }
+
+export function connect() {
+  render()
+}

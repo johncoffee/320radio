@@ -4,7 +4,8 @@ const { Subject, Observable, isObservable, pipe } = window.rxjs
 const { startWith, scan } = window.rxjs.operators
 
 const initialState = {
-
+  track: {},
+  page: '',
 }
 
 // private!

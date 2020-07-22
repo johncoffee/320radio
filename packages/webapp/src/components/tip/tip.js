@@ -1,6 +1,6 @@
 import { html, render as litRender } from '../../../node_modules/lit-html/lit-html.js'
 import { sendTip } from '../metamask-connection/metamask.js'
-import { connect } from '../metamask-connection/metamask.js'
+import { connect as mmConnect } from '../metamask-connection/metamask.js'
 import { getAccount } from '../metamask-connection/metamask.js'
 import { getChainId } from '../metamask-connection/metamask.js'
 import { init as mmInit } from '../metamask-connection/metamask.js'
@@ -12,7 +12,7 @@ async function handleClick() {
     sendTip()
   }
   else {
-    await connect()
+    await mmConnect()
   }
   render()
 }
@@ -56,4 +56,8 @@ export function render() {
     chain: getChain(getChainId()),
   }
   litRender(tpl(state), document.querySelector('.tip-component'))
+}
+
+export function connect() {
+  render()
 }

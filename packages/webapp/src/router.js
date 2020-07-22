@@ -1,21 +1,20 @@
 import { setPage } from './state-store.js'
+const { filter } = window.rxjs.operators
 
 export function showPage (selector) {
   setPage(selector)
 }
 
 function _showPage (selector) {
-  console.log('route '+selector)
   Array.from(document.querySelectorAll('.page'))
-    .forEach(el =>
-      (el === document.querySelector(selector)) ? el.classList.remove('hide') : el.classList.add('hide'))
+    .forEach(el => el.classList.add('hide'))
+  document.querySelector(selector).classList.remove('hide')
 }
 
-let lastPage
 
 export function createRouter(state) {
-  state.subscribe(({page}) => {
-    lastPage = page
+  state.pipe(filter(s => !!s.page)).subscribe(({page}) => {
     _showPage(page)
+    localStorage.lastPage = page
   })
 }
