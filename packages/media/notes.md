@@ -23,3 +23,7 @@ url: https://www.youtube.com/watch?v=4TKcz5AqcnQ
 5. generate a playlist from the root hash `node files-to-playlist.js /tmp/playlist.txt`
 
 Then use the playlist `cp /tmp/playlist.json ../webapp/src/data`
+
+# TODO 
+
+use ipfs object get --enc json
