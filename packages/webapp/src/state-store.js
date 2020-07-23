@@ -42,8 +42,12 @@ export const setPlayList = actionCreator((payload) => ({
 export const SET_TRACK = 'SET_TRACK'
 export const setTrack = actionCreator((track) => {
 
-  document.querySelector('.bgimg').style.backgroundImage = (track.coverImage) ?
-    `url(${track.coverImage})` : 'none'
+  document.querySelector('.bgimg').style.backgroundImage = (track.coverImage) ? `url(${track.coverImage})` : ''
+  if (track.meta && track.meta.coverCSS) {
+    Object.entries(track.meta.coverCSS).forEach(([k,v]) => {
+      document.querySelector('.bgimg').style[k] = v
+    })
+  }
 
   document.title = `${track.artist} - ${track.title}`
 
