@@ -51,7 +51,7 @@ export function connect (store) {
       skip,
       ...s.playlist,
       ...s.track,
-      mp3: gatewayHost + track.mp3, // fix url
+      mp3: gatewayHost + s.track.mp3, // fix url
     })
   })
 }
