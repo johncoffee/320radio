@@ -4,6 +4,8 @@ import { setTrack } from '../../state-store.js'
 import { setPlayList } from '../../state-store.js'
 import { skipTrack } from '../../state-store.js'
 
+const gatewayHost = "http://127.0.0.1:8080"
+
 const myTemplate = ({ title, artist, mp3, skip, onPause,}) => html`
 <div class="">
     <h1><span class="media__title">${title}</span></h1>
@@ -26,7 +28,9 @@ export function connect (store) {
     const skip = (skippedTrack) => {
       console.log('meh',skippedTrack)
       const nextIndex = (s.playlist.index+1 >= s.playlist.playlist.length) ? 0 : s.playlist.index+1;
-      setTrack(s.playlist.playlist[nextIndex])
+      const track = s.playlist.playlist[nextIndex]
+      console.log(track)
+      setTrack(track)
       skipTrack(nextIndex)
       // move to reducer
     }
@@ -40,12 +44,14 @@ export function connect (store) {
     // const coverImg = styleMap({
     //   backgroundImage: (s.track.coverImage) ? `url(${s.track.coverImage})` : 'none'
     // })
+
     render({
       // coverImg,
       onPause,
       skip,
       ...s.playlist,
       ...s.track,
+      mp3: gatewayHost + track.mp3, // fix url
     })
   })
 }
@@ -57,16 +63,31 @@ export const defaultPl = [
     artist: 'Turing',
     title: 'Stutter',
     mp3: '//127.0.0.1:8080/ipfs/QmPTjFUhaufnctdxSv8oThzvFrnNookD57q99GpkW5Db6g/Turing - Stutter-839941489.mp3',
-    coverImage: '//127.0.0.1:8080/ipfs/QmPTjFUhaufnctdxSv8oThzvFrnNookD57q99GpkW5Db6g/rafael-romero-8yaG5_PUz9s-unsplash.jpg',
   },
   {
     artist: 'Deus Verres',
     title: 'Check',
     mp3: '//127.0.0.1:8080/ipfs/QmPTjFUhaufnctdxSv8oThzvFrnNookD57q99GpkW5Db6g/Deus Verres - Check-812676751.mp3',
-    coverImage: '//127.0.0.1:8080/ipfs/QmPTjFUhaufnctdxSv8oThzvFrnNookD57q99GpkW5Db6g/ta-tung-SxAWoMtUxCs-unsplash.jpg',
+    coverImage: '//127.0.0.1:8080/ipfs/QmPTjFUhaufnctdxSv8oThzvFrnNookD57q99GpkW5Db6g/the-new-york-public-library-YTfgJ8LJaB0-unsplash.jpg',
+    meta: {
+      coverCSS: {
+        backgroundPosition: 'center',
+      }
+    }
 }]
 
-export function playDefaultList () {
+export async function playDefaultList () {
+  try {
+    const res = await fetch("src/data/playlist.json")
+    const json = JSON.parse(await res.text()) // parse text because we dont know if the mime type would be set correct
+    setPlayList(json)
+    setTrack(json[0])
+    return
+  }
+  catch (e) {
+
+  }
+
   setPlayList(defaultPl)
   setTrack(defaultPl[0])
 }
