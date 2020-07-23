@@ -21,4 +21,5 @@ url: https://www.youtube.com/watch?v=4TKcz5AqcnQ
 3. enter tmp and `ipfs add -wQ public/*.mp3` IPFS the files to IPFS, note the root hash
 4. export the files to a plain text list `ipfs ls Qm.. > /tmp/playlist.txt` 
 5. generate a playlist from the root hash `node files-to-playlist.js /tmp/playlist.txt`
-6. copy the playlist `cp /tmp/playlist.txt .`
+
+Then use the playlist `cp /tmp/playlist.json ../webapp/src/data`

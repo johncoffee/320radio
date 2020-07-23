@@ -1,6 +1,6 @@
 const {readFileSync, writeFileSync} = require('fs')
 
-const filepath = process.argv[2] || './playlist.txt'
+const filepath = process.argv[2]
 
 const buffer = readFileSync(filepath)
 const lines = buffer.toString().trim().split(/\n/)
