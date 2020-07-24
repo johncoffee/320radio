@@ -7,7 +7,5 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "ipfs-deploy": "^7.14.0"
-  }
+  "dependencies": {}
 }
