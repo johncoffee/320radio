@@ -6,9 +6,10 @@
   "main": "index.js",
   "scripts": {
     "start": "npx http-server -p 8000",
-    "remove-some": "git clean -dfx -e foundation-sites/dist/ -e rxjs/dist/ -e lit-html/ .",
-    "build": "npm i --production; npm run remove-some; npm run get-web3",
-    "get-web3": "cd node_modules; curl -O https://unpkg.com/web3@1.2.11/dist/web3.min.js"
+    "remove-some": "git clean -dfx -e **/dist/**/*.min.* -e lit-html/ .",
+    "build": "npm i --production; npm run remove-some",
+    "postinstall": "npm run install-web3",
+    "install-web3": "cd node_modules; mkdir -p web3/dist; cd web3/dist; curl -O https://unpkg.com/web3@1.2.11/dist/web3.min.js"
   },
   "author": "",
   "license": "ISC",

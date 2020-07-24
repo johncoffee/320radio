@@ -3,12 +3,15 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "postinstall": "lerna bootstrap",
+    "deploy-radio": "ipfs-deploy packages/webapp -p pinata -O -C",
+    "deploy-media": "ipfs-deploy packages/media/public -p pinata -O -C"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "ipfs-deploy": "^8.0.1",
     "lerna": "^3.22.1"
   }
 }
