@@ -18,7 +18,7 @@ async function handleClick() {
   render()
 }
 
-const tpl = ({amount, account, chain}) => {
+const tpl = ({account, chain}) => {
   return html`
 <p>
     <button class="button primary" style="vertical-align: unset" type="button" @click=${handleClick}>TIP</button>
@@ -52,7 +52,7 @@ function getChain(currentChainId) {
 
 export function render() {
   const state = {
-    account: getAccount(),
+    account: getAccount() || '',
     chain: getChain(getChainId()),
   }
   litRender(tpl(state), document.querySelector('.tip-component'))
