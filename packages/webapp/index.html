@@ -3,6 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>music</title>
+
+    <meta name="viewport" content= "width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#222222">
+
+    <!-- Add to homescreen for Chrome on Android. Fallback for manifest.json -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="320radio">
+    <meta name="application-name" content="320radio">
+
     <script src="node_modules/web3/dist/web3.min.js" defer></script>
     <script src="node_modules/rxjs/dist/bundles/rxjs.umd.min.js"></script>
     <script src="src/main.js" type="module"></script>
@@ -35,6 +46,16 @@
         body {
             background: #222;
             color: #fff;
+        }
+
+        .noselect {
+            -webkit-touch-callout: none; /* iOS Safari */
+            -webkit-user-select: none; /* Safari */
+            -khtml-user-select: none; /* Konqueror HTML */
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
         }
 
         .button.primary:focus,
@@ -70,7 +91,7 @@
         }
     </style>
 </head>
-<body class="height-100 bgimg bgimg--default">
+<body class="height-100 bgimg bgimg--default noselect">
 
 <div class="grid-container full height-100">
     <div class="grid-y height-100 align-center page hide page-intro">
