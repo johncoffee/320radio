@@ -1,3 +1,8 @@
+import { tipAddress } from '../../settings.js'
+import { tipDAIAmount } from '../../settings.js'
+import { daiKovan } from '../../settings.js'
+import { tipEtherAmount } from '../../settings.js'
+
 const ethereum = window.ethereum
 let currentChainId = null
 let currentAccount = null
@@ -22,7 +27,6 @@ export function init () {
     console.log('downgrading async method')
     asyncMethodAlias = 'send';
   }
-
 
   /*********************************************************/
   /* Handle chain (network) and chainChanged, per EIP 1193 */
@@ -117,17 +121,64 @@ export function connect () {
     })
 }
 
+export function sendDAI() {
+  const web3 = new Web3()
+  const { toWei } = web3.utils
+  const data = web3.eth.abi.encodeFunctionCall({
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_dst",
+        "type": "address"
+      },
+      {
+        "name": "_wad",
+        "type": "uint256"
+      }
+    ],
+    "name": "transfer",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }, [
+    tipAddress,
+    toWei(tipDAIAmount,'ether'), // dai has have also 18 decimals
+  ])
 
-export function sendTip () {
+  const params = {
+    method: 'eth_sendTransaction',
+    params: [
+      {
+        from: currentAccount,
+        to: daiKovan,
+        gas: '100000',
+        data,
+      },
+    ],
+  }
+
+  return ethereum[asyncMethodAlias](params)
+    .then(res => console.log(res))
+    .catch(err => console.error(err))
+}
+
+export function sendEth () {
+  const { toHex, toWei } = new Web3().utils
+
   return ethereum
     [asyncMethodAlias]({
       method: 'eth_sendTransaction',
       params: [
         {
           from: currentAccount,
-          to: '0x8A19672ff50fE5D34AF3F0C022B5FC46F555387B',
-          value: "0x16345785d8a0000", // 0.1
-          // Web3Utils.toHex(Web3Utils.toWei('0.1','ether'))
+          to: tipAddress,
+          value: toHex(toWei(tipEtherAmount,'ether')),
         },
       ],
     })

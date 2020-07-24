@@ -1,10 +1,10 @@
 import { html, render as litRender } from '../../../node_modules/lit-html/lit-html.js'
-import {styleMap} from '../../../node_modules/lit-html/directives/style-map.js'
+// import {styleMap} from '../../../node_modules/lit-html/directives/style-map.js'
 import { setTrack } from '../../state-store.js'
 import { setPlayList } from '../../state-store.js'
 import { skipTrack } from '../../state-store.js'
+import { gatewayHost } from '../../settings.js'
 
-const gatewayHost = "http://127.0.0.1:8080"
 
 const myTemplate = ({ title, artist, mp3, skip, onPause,}) => html`
 <div class="">

@@ -1,5 +1,5 @@
 import { html, render as litRender } from '../../../node_modules/lit-html/lit-html.js'
-import { sendTip } from '../metamask-connection/metamask.js'
+import { sendDAI } from '../metamask-connection/metamask.js'
 import { connect as mmConnect } from '../metamask-connection/metamask.js'
 import { getAccount } from '../metamask-connection/metamask.js'
 import { getChainId } from '../metamask-connection/metamask.js'
@@ -8,8 +8,9 @@ import { init as mmInit } from '../metamask-connection/metamask.js'
 mmInit()
 
 async function handleClick() {
+  // TODO handle no internet, or Metamask will freak out
   if (getAccount()) {
-    sendTip()
+    sendDAI()
   }
   else {
     await mmConnect()
@@ -20,7 +21,7 @@ async function handleClick() {
 const tpl = ({amount, account, chain}) => {
   return html`
 <p>
-    <button class="button primary" style="vertical-align: unset" type="button" @click=${handleClick}>TIP ${amount}</button>
+    <button class="button primary" style="vertical-align: unset" type="button" @click=${handleClick}>TIP</button>
     <span class="media__title">
     ${account ? `Connected ${shortAddress(account)} (${chain})` : `MetaMask not connected`}
     </span>&nbsp;
@@ -51,7 +52,6 @@ function getChain(currentChainId) {
 
 export function render() {
   const state = {
-    amount: '€1',
     account: getAccount(),
     chain: getChain(getChainId()),
   }
