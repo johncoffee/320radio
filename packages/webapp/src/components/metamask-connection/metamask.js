@@ -13,6 +13,19 @@ let asyncMethodAlias = 'request'
 // This API will go live in early 2020
 // It will be the only API available after a 6-week deprecation period
 
+function mmRequestShim(rpc) {
+  return new Promise((resolve, reject) => {
+    ethereum.send(rpc, (err, result) => {
+      console.log(err, result)
+      if (err) {
+        reject(reject)
+        return
+      }
+
+      resolve(result)
+    })
+  })
+}
 
 export function init () {
   if (!ethereum) {
@@ -24,15 +37,15 @@ export function init () {
 
   // test for newest API
   if (typeof ethereum.request !== "function") {
-    console.log('downgrading async method')
-    asyncMethodAlias = 'send';
+    console.log('shimming meta mask')
+    ethereum.request = mmRequestShim
   }
 
   /*********************************************************/
   /* Handle chain (network) and chainChanged, per EIP 1193 */
   /*********************************************************/
 
-  ethereum[asyncMethodAlias]({method: 'eth_chainId' })
+  ethereum.request({method: 'eth_chainId' })
     .then(handleChainChanged)
     .catch(err => console.error(err)) // This should never happen
   ethereum.on('chainChanged', handleChainChanged)
@@ -41,7 +54,7 @@ export function init () {
   /* Handle user accounts and accountsChanged, per EIP 1193 */
   /**********************************************************/
 
-  ethereum[asyncMethodAlias]({ method: 'eth_accounts' })
+  ethereum.request({ method: 'eth_accounts' })
     .then(handleAccountsChanged)
     .catch(err => {
       // In the future, maybe in 2020, this will return a 4100 error if
@@ -58,10 +71,10 @@ export function init () {
 // If the array of accounts is non-empty, you're already
 // connected.
   ethereum.on('accountsChanged', handleAccountsChanged)
-
 }
 
-function handleChainChanged (chainId) {
+function handleChainChanged (res) {
+  const chainId = (res && res.result) ? res.result : res // shimming fix
   if (currentChainId !== chainId) {
 
     currentChainId = chainId
@@ -72,10 +85,11 @@ function handleChainChanged (chainId) {
 
 
 // For now, 'eth_accounts' will continue to always return an array
-function handleAccountsChanged (accounts) {
+function handleAccountsChanged (res) {
+  const accounts = Array.isArray(res) ? res : res.result // shimming fix
+  console.log(res, accounts)
   console.assert(Array.isArray(accounts), "expected Array from metamask", accounts)
   if (accounts.length === 0) {
-
     // MetaMask is locked or the user has not connected any accounts
     console.warn('Please connect properly to MetaMask.')
 
@@ -108,10 +122,8 @@ export function getChainId() {
 }
 
 export function connect () {
-  return ethereum[asyncMethodAlias]({ method: 'eth_requestAccounts' })
-    .then(accounts => {
-      handleAccountsChanged(accounts)
-    })
+  return ethereum.request({ method: 'eth_requestAccounts' })
+    .then(handleAccountsChanged)
     .catch(err => {
       if (err.code === 4001) { // EIP 1193 userRejectedRequest error
         console.log('Please connect to MetaMask.')
@@ -163,7 +175,7 @@ export function sendDAI() {
     ],
   }
 
-  return ethereum[asyncMethodAlias](params)
+  return ethereum.request(params)
     .then(res => console.log(res))
     .catch(err => console.error(err))
 }
@@ -171,8 +183,7 @@ export function sendDAI() {
 export function sendEth () {
   const { toHex, toWei } = new Web3().utils
 
-  return ethereum
-    [asyncMethodAlias]({
+  return ethereum.request({
       method: 'eth_sendTransaction',
       params: [
         {
