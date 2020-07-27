@@ -5,7 +5,8 @@ const filepath = process.argv[2]
 const buffer = readFileSync(filepath)
 const lines = buffer.toString().trim().split(/\n/)
 
-const dataColumns = lines.filter(l => !!l).map(line => {
+const dataColumns = lines.filter(l => !!l)
+.filter(line => line.endsWith('.mp3')).map(line => {
   const hash = line.substr(0,line.indexOf(' '))
   const result = line.match(/ \d+ /)
   const size = (result[0] || '').trim()
