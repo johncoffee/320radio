@@ -5,6 +5,8 @@
   "scripts": {
     "postinstall": "lerna bootstrap",
     "deploy-radio": "ipfs-deploy packages/webapp -p pinata -d cloudflare -O -C",
+    "predeploy-radio": "cd packages/webapp; npm run build",
+    "postdeploy-radio": "cd packages/webapp; git checkout . && npm i",
     "deploy-media": "ipfs-deploy packages/media/public -p pinata -O -C"
   },
   "author": "",
