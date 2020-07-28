@@ -6,8 +6,9 @@
   "main": "index.js",
   "scripts": {
     "start": "npx http-server -p 8000",
-    "remove-some": "git clean -dfx -e **/dist/**/*.min.* -e lit-html/ .",
-    "build": "npm i --production; npm run remove-some",
+    "remove-node_modules": "git clean -qdfx --exclude=\"**/*.min.js\" --exclude=\"**/*.min.css\" --exclude=\"**/lit-html/**/*.js\"",
+    "remove-meta": "rm *.json; rm *.md",
+    "build": "npm ci --production && npm run remove-node_modules; npm run remove-meta",
     "postinstall": "npm run install-web3",
     "install-web3": "cd node_modules; mkdir -p web3/dist; cd web3/dist; curl -O https://unpkg.com/web3@1.2.11/dist/web3.min.js"
   },
