@@ -36,7 +36,7 @@ export const actionCreator = (func) => (...args) => {
 export const SET_PLAYLIST = 'SET_PLAYLIST'
 export const setPlayList = actionCreator((payload) => ({
   type: SET_PLAYLIST,
-  payload
+  payload: Array.isArray(payload) ? payload.sort(() => Math.random() > 0.5 ? -1 : 1) : [],
 }))
 
 export const SET_TRACK = 'SET_TRACK'
