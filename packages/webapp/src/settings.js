@@ -2,5 +2,5 @@
 export const tipEtherAmount = '0.01'
 export const tipDAIAmount = '1'
 export const tipAddress = '0xCbD4a553F2Cede36e4CC3821De76d6A23F2f6555'
-export const gatewayHost = "http://gateway.pinata.cloud"
+export const gatewayHost = "https://gateway.pinata.cloud"
 export const daiKovan = '0x4f96fe3b7a6cf9725f59d353f723c1bdb64ca6aa'
