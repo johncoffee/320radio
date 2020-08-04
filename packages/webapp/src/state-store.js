@@ -32,6 +32,20 @@ export const actionCreator = (func) => (...args) => {
   }
   return action
 }
+export function actionCreator2 (func) {
+  if (!func) {
+    func = payload => ({payload})
+  }
+  const action = (...args) => {
+    const actionObj = func.call(null, ...args)
+    actionObj.type = func
+    // push it to the stream
+    action$.next(actionObj)
+    return actionObj
+  }
+
+  return [action, func]
+}
 
 export const SET_PLAYLIST = 'SET_PLAYLIST'
 export const setPlayList = actionCreator((payload) => ({
@@ -63,11 +77,7 @@ export const skipTrack = actionCreator((payload) => ({
   payload,
 }))
 
-export const SET_PAGE = 'SET_PAGE'
-export const setPage = actionCreator((payload) => ({
-  type: SET_PAGE,
-  payload
-}))
+export const [setPage, SET_PAGE] = actionCreator2()
 
 export function reducer(state, action) {
   // console.log(action.type, state, action)
