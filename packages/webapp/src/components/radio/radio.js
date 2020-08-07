@@ -4,12 +4,13 @@ import { setTrack } from '../../state-store.js'
 import { setPlayList } from '../../state-store.js'
 import { skipTrack } from '../../state-store.js'
 import { gatewayHost } from '../../settings.js'
+import { showPage } from '../../router.js'
 
 
 const myTemplate = ({ title, artist, mp3, skip, onPause,}) => html`
 <div class="">
     <h1><span class="media__title">${title}</span></h1>
-    <h3><span class="media__title">by ${artist}</span></h3>
+    <h3><span class="media__title media__title--artist">by ${artist}</span></h3>   
 </div> 
 
 <div class="margin-vertical-1">

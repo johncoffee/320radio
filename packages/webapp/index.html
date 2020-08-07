@@ -23,6 +23,12 @@
         @import "node_modules/foundation-sites/dist/css/foundation-prototype.min.css";
     </style>
     <style>
+        /*temp override*/
+        .hide {
+            display: none
+        }
+    </style>
+    <style>
         :root {
             --red: #ff4864;
             --black: rgba(26,26,26,.8);
@@ -69,8 +75,11 @@
         .button.primary {background-color: var(--black);}
 
         .media__title {
+            padding: 0 1rem;
             background-color: var(--black);
             color: #fff;
+            text-transform: uppercase;
+            font-weight: 500;
         }
 
         .logo {
@@ -81,11 +90,9 @@
             width: 119px;
         }
 
-        /*temp override*/
-        .hide {
-            display: none
+        .page-artists__center {
+            background: #0a160a;
         }
-
         .page-intro {
             background: #112;
         }
@@ -96,6 +103,7 @@
 <div class="grid-container full height-100">
     <div class="grid-y height-100 align-center page hide page-intro">
         <div class="cell shrink">
+<!--            <p><button class="button small primary" @click=${()=>showPage('.page-artists')}>ARTISTS</button></p>-->
         </div>
         <div class="cell">
 
@@ -132,8 +140,9 @@
         </div>
     </div>
 
-    <div class="grid-y height-100 page hide page page-artists">
-        <div class="cell auto">
+    <div class="grid-x hide page page-artists align-center-middle">
+        <div class="cell large-6 medium-offset-1 page-artists__center padding-1">
+            <h4>ARTISTS</h4>
             <div class="artists-list"></div>
         </div>
     </div>
