@@ -1,6 +1,7 @@
 import * as radio from './components/radio/radio.js'
 import * as tip from './components/tip/tip.js'
 import * as intro from './components/intro-page/logo.js'
+import * as bottom from './components/radio-bottom-menu/radio-bottom-menu.js'
 import { createStore, setPage } from './state-store.js'
 import { createRouter } from './router.js'
 import { playDefaultList } from './components/radio/radio.js'
@@ -15,6 +16,7 @@ const store = createStore()
 tip.connect(store)
 radio.connect(store)
 artists.connect(store)
+bottom.connect(store)
 
 createRouter(store)
 

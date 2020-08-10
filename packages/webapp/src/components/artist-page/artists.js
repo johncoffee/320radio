@@ -20,8 +20,12 @@ function back() {
 }
 
 const myTemplate = ({ artists }) => html`
-<div>
-    <p><button class="button clear" @click=${back}>BACK</button></p>
+    <div class="grid-x align-justify">
+        <h4>ARTISTS</h4>
+        <button class="button primary" @click=${back}>BACK</button>    
+    </div>
+    <hr>
+   
     ${artists.map(({name, social}) => html`
       <p style="font-size:1.35rem">${name}     
       
@@ -30,11 +34,11 @@ const myTemplate = ({ artists }) => html`
       `)}
       </p>
     `)}        
-</div>
+
 `
 
 export function render (props) {
-  litRender(myTemplate(props), document.querySelector('.artists-list'))
+  litRender(myTemplate(props), document.querySelector('artists-list'))
 }
 
 export function connect(store) {
