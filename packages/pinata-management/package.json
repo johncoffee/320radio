@@ -1,0 +1,15 @@
+{
+  "name": "pinata-management",
+  "version": "1.0.0",
+  "description": "",
+  "main": "pins.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@pinata/sdk": "^1.1.11",
+    "dotenv": "^8.2.0"
+  }
+}
