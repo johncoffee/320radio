@@ -16,9 +16,13 @@ const pinata = pinataSDK(process.env.IPFS_DEPLOY_PINATA__API_KEY, process.env.IP
     status: 'pinned'
   })
 
+  console.log(`looking for _dnslink.${process.env.IPFS_DEPLOY_CLOUDFLARE__ZONE}`)
+
   const p = list.rows
-    .filter(v => v.metadata)
-    .filter(v => v.metadata.name === "_dnslink.zerosleep.dk")
+    .filter(v => v.metadata &&
+      typeof v.metadata.name === 'string' &&
+      v.metadata.name.includes(`_dnslink.${process.env.IPFS_DEPLOY_CLOUDFLARE__ZONE}`)
+    )
     .map(v => pinata.unpin(v.ipfs_pin_hash))
 
   await Promise.all(p)
