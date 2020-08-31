@@ -1,5 +1,5 @@
 
-# How to make a playlist
+# How to make a playlist (manual step by step)
 
 1. find soundcloud songs and/or playlists
 2. download the music and place it in tmp/songs  
