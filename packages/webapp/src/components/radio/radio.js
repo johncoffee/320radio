@@ -24,6 +24,11 @@ const myTemplate = ({ title, artist, mp3, skip, onPause,}) => html`
 
 // TODO inject dispatcher
 export function connect (store) {
+  store.subscribe(({canFullScreen}) => {
+    if (canFullScreen) {
+      enableBgVideo()
+    }
+  })
 
   store.subscribe(s => {
     const skip = (skippedTrack) => {
@@ -61,17 +66,25 @@ export function connect (store) {
 
 
 export async function playDefaultList () {
+  setPlayList([])
+  setTrack({title: "Loading...", artist: 'IPFS'})
   try {
     const res = await fetch("src/data/playlist.json")
     const json = JSON.parse(await res.text()) // parse text because we dont know if the mime type would be set correct
+    if (!json[0]) {
+      return console.warn('playlist was empty!')
+    }
     setPlayList(json)
     setTrack(json[0])
-    return
   }
   catch (e) {
     console.warn('failed getting playlist')
     console.warn(e)
   }
+}
+
+function enableBgVideo() {
+  document.querySelector('.cover-video').removeAttribute('hidden')
 }
 
 export function render (track) {

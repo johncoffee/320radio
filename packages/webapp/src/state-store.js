@@ -1,9 +1,13 @@
 // import { Subject, Observable, isObservable, pipe } from '../node_modules/rxjs/dist/esm/'
 // hacky import
+import { toggleFullScreenBrowser } from './facade.js'
+
 const { Subject, Observable, isObservable, pipe } = window.rxjs
 const { startWith, scan } = window.rxjs.operators
 
 const initialState = {
+  canFullScreen: window.innerHeight >= 768 && window.innerHeight < window.innerWidth, // TODO observe
+  fullscreen: false,
   playlist: {
     playlist: [],
     index: 0,
@@ -105,7 +109,36 @@ export function reducer(state, action) {
         ...state,
         track: action.payload
       }
+    case SET_FULLSCREEN:
+      return {
+      ...state,
+      fullscreen: action.payload
+    }
+    case TOGGLE_FULLSCREEN:
     default:
       return state
   }
 }
+
+// new actions add here
+export const TOGGLE_FULLSCREEN = 'TOGGLE_FULLSCREEN'
+export const toggleFullScreen = actionCreator(() => {
+    toggleFullScreenBrowser()
+      .then(res => setFullScreen(res))
+
+    return {
+      type: TOGGLE_FULLSCREEN,
+    }
+  }
+)
+export const SET_FULLSCREEN = 'SET_FULLSCREEN'
+export const setFullScreen = actionCreator((enabled) => {
+    return {
+      type: SET_FULLSCREEN,
+      payload: !!enabled
+    }
+  }
+)
+
+document.addEventListener('fullscreenerror', () => setFullScreen(!!document.fullscreenElement))
+document.addEventListener('fullscreenchange', () => setFullScreen(!!document.fullscreenElement))

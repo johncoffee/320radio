@@ -5,7 +5,7 @@
     <title>music</title>
 
     <meta name="viewport" content= "width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#222222">
+    <meta name="theme-color" content="#17030e">
 
     <!-- Add to homescreen for Chrome on Android. Fallback for manifest.json -->
     <meta name="mobile-web-app-capable" content="yes">
@@ -31,6 +31,7 @@
         @import "assets.css";
 
         :root {
+            --darkPurple: #17030e;
             --red: #ff4864;
             --black: rgba(26,26,26,.8);
             --blackDarker: rgba(0,0,0, 0.8);
@@ -103,6 +104,28 @@
         .page-intro {
             background: #112;
         }
+
+        /*
+        covering video element
+        https://stackoverflow.com/questions/10797632/simulate-background-sizecover-on-video-or-img
+        */
+        .cover-video {
+            position: absolute;
+            top:0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+        .cover-video__video {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            object-position: center center;
+        }
+
     </style>
 </head>
 <body class="height-100 bgimg bgimg--default noselect">
@@ -148,6 +171,13 @@
         <div class="cell shrink padding-left-2">
             <radio-bottom-menu></radio-bottom-menu>
         </div>
+
+        <div class="cover-video" hidden>
+            <video src="https://gateway.pinata.cloud/ipfs/QmS5TUNuNJW2ckNX6BZrufktGDvQaMyBBZXSDHEpfZ3ATH"
+                   class="cover-video__video"
+                   autoplay muted loop></video>
+        </div>
+
     </div>
 
     <div class="grid-x hide page page-artists align-center-middle">
