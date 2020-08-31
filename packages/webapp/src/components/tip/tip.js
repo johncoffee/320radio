@@ -18,7 +18,7 @@ async function handleClick() {
   render()
 }
 
-const tpl = ({account, chain, artist = ''}) => {
+const tpl = ({account, chain, artist}) => {
   return html`
 <p>
     <button class="button primary" style="vertical-align: unset" type="button" @click=${handleClick}>TIP ${artist}</button><br>
@@ -36,8 +36,6 @@ function shortAddress (address) {
   // 0x8a19672ff50fe5d34af3f0c022b5fc46f555387b
   return `${address.substr(0,6)}...${address.substr(-4,4)}`
 }
-
-setInterval(render,1000)
 
 function getChain(currentChainId) {
   const names = {
@@ -58,10 +56,16 @@ export function connect(store) {
   const state = {
     account: getAccount() || '',
     chain: getChain(getChainId()),
+    artist: 'loading...',
   }
 
-  store.subscribe(({track}) => {
-    state.artist = track.artist
+  store.subscribe(s => {
+    if (s.track.artist) {
+      state.artist = s.track.artist
+    }
     render(state)
   })
+
+  // TODO move to RX
+  setInterval(() => render(state),1333)
 }
