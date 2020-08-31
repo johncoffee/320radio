@@ -4,12 +4,13 @@ import { setTrack } from '../../state-store.js'
 import { setPlayList } from '../../state-store.js'
 import { skipTrack } from '../../state-store.js'
 import { gatewayHost } from '../../settings.js'
+import { showPage } from '../../router.js'
 
 
 const myTemplate = ({ title, artist, mp3, skip, onPause,}) => html`
 <div class="">
     <h1><span class="media__title">${title}</span></h1>
-    <h3><span class="media__title">by ${artist}</span></h3>
+    <h3><span class="media__title media__title--artist">by ${artist}</span></h3>   
 </div> 
 
 <div class="margin-vertical-1">
@@ -58,23 +59,6 @@ export function connect (store) {
 
 // super high level functions
 
-export const defaultPl = [
-  {
-    artist: 'Turing',
-    title: 'Stutter',
-    mp3: '//127.0.0.1:8080/ipfs/QmPTjFUhaufnctdxSv8oThzvFrnNookD57q99GpkW5Db6g/Turing - Stutter-839941489.mp3',
-  },
-  {
-    artist: 'Deus Verres',
-    title: 'Check',
-    mp3: '//127.0.0.1:8080/ipfs/QmPTjFUhaufnctdxSv8oThzvFrnNookD57q99GpkW5Db6g/Deus Verres - Check-812676751.mp3',
-    coverImage: '//127.0.0.1:8080/ipfs/QmPTjFUhaufnctdxSv8oThzvFrnNookD57q99GpkW5Db6g/the-new-york-public-library-YTfgJ8LJaB0-unsplash.jpg',
-    meta: {
-      coverCSS: {
-        backgroundPosition: 'center',
-      }
-    }
-}]
 
 export async function playDefaultList () {
   try {
@@ -85,11 +69,9 @@ export async function playDefaultList () {
     return
   }
   catch (e) {
-
+    console.warn('failed getting playlist')
+    console.warn(e)
   }
-
-  setPlayList(defaultPl)
-  setTrack(defaultPl[0])
 }
 
 export function render (track) {

@@ -14,7 +14,8 @@ const dataColumns = lines.filter(l => !!l)
   const [artist, title] = filename.split(' - ')
   const mp3 = `/ipfs/${hash}`
   return {
-    hash, size , filename, artist, mp3,
+    mp3,
+    artist,
     title: title.replace(/\-\d+\.mp3$/,'')
   }
 })

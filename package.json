@@ -3,11 +3,13 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "postinstall": "lerna bootstrap",
-    "deploy-radio": "ipfs-deploy packages/webapp -p pinata -d cloudflare -O -C",
     "predeploy-radio": "cd packages/webapp; npm run build",
+    "deploy-radio": "ipfs-deploy packages/webapp -p pinata -d cloudflare -O -C",
     "postdeploy-radio": "cd packages/webapp; git checkout . && npm i",
-    "deploy-media": "ipfs-deploy packages/media/public -p pinata -O -C"
+
+    "deploy-media": "ipfs-deploy packages/media/tmp -p pinata -O -C",
+
+    "postinstall": "lerna bootstrap"
   },
   "author": "",
   "license": "ISC",

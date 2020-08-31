@@ -19,10 +19,17 @@
     <script src="src/main.js" type="module"></script>
 
     <style>
-        @import "node_modules/foundation-sites/dist/css/foundation.min.css";
-        @import "node_modules/foundation-sites/dist/css/foundation-prototype.min.css";
+        /*temp override*/
+        .hide {
+            display: none
+        }
     </style>
     <style>
+        @import "fonts.css";
+        @import "node_modules/foundation-sites/dist/css/foundation.min.css";
+        @import "node_modules/foundation-sites/dist/css/foundation-prototype.min.css";
+        @import "assets.css";
+
         :root {
             --red: #ff4864;
             --black: rgba(26,26,26,.8);
@@ -43,9 +50,15 @@
             border: none;
         }
 
+        h1, h2, h3 {
+            font-family: Metropolis, sans-serif;
+            font-weight: bold;
+        }
+
         body {
             background: #222;
             color: #fff;
+            font-family: Metropolis, sans-serif;
         }
 
         .noselect {
@@ -69,23 +82,24 @@
         .button.primary {background-color: var(--black);}
 
         .media__title {
+            padding: 0 1rem;
             background-color: var(--black);
             color: #fff;
+            text-transform: uppercase;
         }
 
         .logo {
             display: inline-block;
-            background: transparent url("//320colab.com/img/logo.png") no-repeat center center;
-            background-size: 93.3%;
-            height: 2.9rem;
+            background-repeat: no-repeat;
+            background-position: -10px -27px;
+            background-size: 92.3%;
+            height: 47px;
             width: 119px;
         }
 
-        /*temp override*/
-        .hide {
-            display: none
+        .page-artists__center {
+            background: var(--blackDarker);
         }
-
         .page-intro {
             background: #112;
         }
@@ -96,6 +110,7 @@
 <div class="grid-container full height-100">
     <div class="grid-y height-100 align-center page hide page-intro">
         <div class="cell shrink">
+<!--            <p><button class="button small primary" @click=${()=>showPage('.page-artists')}>ARTISTS</button></p>-->
         </div>
         <div class="cell">
 
@@ -111,15 +126,17 @@
     </div>
 
     <div class="grid-y height-100 page hide page-radio">
-        <div class="cell shrink">
-            <span class="logo margin-vertical-1"></span>
+        <div class="cell shrink padding-top-1 padding-left-2">
+            <a href="https://soundcloud.com/stems320colab/" class="logo logo-img">
+                <span class="show-for-sr">STEMS on soundcloud</span>
+            </a>
         </div>
         <div class="cell auto">
 
             <div class="grid-y height-100 align-center">
                 <div class="cell">
-                    <div class="grid-x grid-padding-x">
-                        <div class="cell large-6 medium-offset-1">
+                    <div class="grid-x">
+                        <div class="cell large-6  padding-left-2">
                             <div class="radio-component"></div>
                             <div class="tip-component"></div>
                         </div>
@@ -128,7 +145,14 @@
             </div>
 
         </div>
-        <div class="cell shrink">
+        <div class="cell shrink padding-left-2">
+            <radio-bottom-menu></radio-bottom-menu>
+        </div>
+    </div>
+
+    <div class="grid-x hide page page-artists align-center-middle">
+        <div class="cell large-6 medium-offset-1 page-artists__center padding-1">
+            <artists-list></artists-list>
         </div>
     </div>
 </div>
