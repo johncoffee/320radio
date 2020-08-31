@@ -24,8 +24,8 @@ const myTemplate = ({ title, artist, mp3, skip, onPause,}) => html`
 
 // TODO inject dispatcher
 export function connect (store) {
-  store.subscribe(({canFullScreen}) => {
-    if (canFullScreen) {
+  store.subscribe(({fullscreen}) => {
+    if (fullscreen) {
       enableBgVideo()
     }
   })
