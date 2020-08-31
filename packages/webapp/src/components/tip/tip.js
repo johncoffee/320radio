@@ -18,10 +18,10 @@ async function handleClick() {
   render()
 }
 
-const tpl = ({account, chain}) => {
+const tpl = ({account, chain, artist = ''}) => {
   return html`
 <p>
-    <button class="button primary" style="vertical-align: unset" type="button" @click=${handleClick}>TIP</button>
+    <button class="button primary" style="vertical-align: unset" type="button" @click=${handleClick}>TIP ${artist}</button><br>
     <span class="media__title">
     ${account ? `Connected ${shortAddress(account)} (${chain})` : `MetaMask not connected`}
     </span>&nbsp;
@@ -50,14 +50,18 @@ function getChain(currentChainId) {
   return names[currentChainId] || currentChainId
 }
 
-export function render() {
+export function render(props) {
+  litRender(tpl(props), document.querySelector('.tip-component'))
+}
+
+export function connect(store) {
   const state = {
     account: getAccount() || '',
     chain: getChain(getChainId()),
   }
-  litRender(tpl(state), document.querySelector('.tip-component'))
-}
 
-export function connect() {
-  render()
+  store.subscribe(({track}) => {
+    state.artist = track.artist
+    render(state)
+  })
 }
