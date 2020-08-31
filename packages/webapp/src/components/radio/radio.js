@@ -24,6 +24,11 @@ const myTemplate = ({ title, artist, mp3, skip, onPause,}) => html`
 
 // TODO inject dispatcher
 export function connect (store) {
+  store.subscribe(({canFullScreen}) => {
+    if (canFullScreen) {
+      enableBgVideo()
+    }
+  })
 
   store.subscribe(s => {
     const skip = (skippedTrack) => {
@@ -72,6 +77,10 @@ export async function playDefaultList () {
     console.warn('failed getting playlist')
     console.warn(e)
   }
+}
+
+function enableBgVideo() {
+  document.querySelector('.cover-video').removeAttribute('hidden')
 }
 
 export function render (track) {

@@ -4,6 +4,7 @@ const { Subject, Observable, isObservable, pipe } = window.rxjs
 const { startWith, scan } = window.rxjs.operators
 
 const initialState = {
+  canFullScreen: window.innerHeight >= 768 && window.innerHeight < window.innerWidth, // TODO observe
   playlist: {
     playlist: [],
     index: 0,
