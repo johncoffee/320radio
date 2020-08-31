@@ -4,6 +4,9 @@ import { connect as mmConnect } from '../metamask-connection/metamask.js'
 import { getAccount } from '../metamask-connection/metamask.js'
 import { getChainId } from '../metamask-connection/metamask.js'
 import { init as mmInit } from '../metamask-connection/metamask.js'
+import { classMap } from '../../../node_modules/lit-html/directives/class-map.js'
+import { toggleFullScreenBrowser } from '../../facade.js'
+import { toggleFullScreen } from '../../state-store.js'
 
 mmInit()
 
@@ -18,16 +21,14 @@ async function handleClick() {
   render()
 }
 
-const tpl = ({account, chain, artist}) => {
+const tpl = ({account, chain, artist, fullscreen}) => {
   return html`
-<p>
-    <button class="button primary" style="vertical-align: unset" type="button" @click=${handleClick}>TIP ${artist}</button><br>
-    <span class="media__title">
-    ${account ? `Connected ${shortAddress(account)} (${chain})` : `MetaMask not connected`}
-    </span>&nbsp;
-</p>
-<p>  
-</p>
+  <div class="${classMap({hide: fullscreen})}">
+      <button class="button primary" style="vertical-align: unset" type="button" @click=${handleClick}>TIP ${artist}</button><br>
+      <span class="media__title">
+      ${account ? `Connected ${shortAddress(account)} (${chain})` : `MetaMask not connected`}
+      </span>&nbsp;
+  </div>
     
   `
 }
@@ -60,6 +61,7 @@ export function connect(store) {
   }
 
   store.subscribe(s => {
+    state.fullscreen = !!s.fullscreen
     if (s.track.artist) {
       state.artist = s.track.artist
     }

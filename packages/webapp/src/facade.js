@@ -1,5 +1,5 @@
 export async function toggleFullScreenBrowser (enable) {
-  if (!document.fullscreenElement || enable) {
+  if (!document.fullscreenElement || enable === true) {
     try {
       await document.querySelector('html').requestFullscreen()
     }

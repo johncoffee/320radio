@@ -9,9 +9,9 @@ function artists () {
   showPage('.page-artists')
 }
 
-const myTemplate = ({ canFullScreen }) => {
+const myTemplate = ({ canFullScreen, fullscreen }) => {
   return html`
-    <div>
+    <div class="${classMap({ hide: fullscreen })}">
         <button class="button primary small" @click=${artists}>ARTISTS</button>
         <button class="button primary small ${classMap({ hide: !canFullScreen })}" @click="${toggleFullScreen}">FULL SCREEN</button>
     </div>
@@ -23,8 +23,5 @@ export function render (props) {
 }
 
 export function connect (store) {
-  store.subscribe(s => {
-    const { canFullScreen } = s
-    render({ canFullScreen })
-  })
+  store.subscribe(s => render(s))
 }

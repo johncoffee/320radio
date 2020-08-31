@@ -99,11 +99,12 @@ export function reducer(state, action) {
         ...state,
         track: action.payload
       }
-    case TOGGLE_FULLSCREEN:
+    case SET_FULLSCREEN:
       return {
-        ...state,
-        fullscreen: !state.fullscreen
-      }
+      ...state,
+      fullscreen: action.payload
+    }
+    case TOGGLE_FULLSCREEN:
     default:
       return state
   }
@@ -113,8 +114,21 @@ export function reducer(state, action) {
 export const TOGGLE_FULLSCREEN = 'TOGGLE_FULLSCREEN'
 export const toggleFullScreen = actionCreator(() => {
     toggleFullScreenBrowser()
+      .then(res => setFullScreen(res))
+
     return {
       type: TOGGLE_FULLSCREEN,
     }
   }
 )
+export const SET_FULLSCREEN = 'SET_FULLSCREEN'
+export const setFullScreen = actionCreator((enabled) => {
+    return {
+      type: SET_FULLSCREEN,
+      payload: !!enabled
+    }
+  }
+)
+
+document.addEventListener('fullscreenerror', () => setFullScreen(!!document.fullscreenElement))
+document.addEventListener('fullscreenchange', () => setFullScreen(!!document.fullscreenElement))
