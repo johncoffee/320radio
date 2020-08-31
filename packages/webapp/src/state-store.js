@@ -49,7 +49,7 @@ export const setTrack = actionCreator((track) => {
     })
   }
 
-  document.title = `${track.artist} - ${track.title}`
+  document.title = `${track.artist} - ${track.title} (at 320 radio)`
 
   return {
     type: SET_TRACK,
