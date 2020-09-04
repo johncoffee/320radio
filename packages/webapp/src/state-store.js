@@ -6,7 +6,7 @@ const { Subject } = window.rxjs
 const { startWith, scan } = window.rxjs.operators
 
 const initialState = {
-  canFullScreen: window.innerHeight >= 768 && window.innerHeight < window.innerWidth, // TODO observe
+  canFullScreen: window.outerHeight >= 768 && window.outerHeight < window.outerWidth, // TODO observe
   fullscreen: false,
   playlist: {
     playlist: [],
