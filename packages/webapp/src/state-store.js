@@ -28,14 +28,6 @@ export function createStore (initState = initialState) {
   return next
 }
 
-export const actionCreator = (func) => (...args) => {
-  const action = func.call(null, ...args)
-  action$.next(action)
-  if (isObservable(action.payload)) {
-    action$.next(action.payload)
-  }
-  return action
-}
 export function actionCreator2 (func) {
   if (!func) {
     func = payload => ({payload})
@@ -52,10 +44,9 @@ export function actionCreator2 (func) {
   return [action, func]
 }
 
-export const SET_PLAYLIST = 'SET_PLAYLIST'
-export const setPlayList = actionCreator((payload) => ({
-  type: SET_PLAYLIST,
-  payload: Array.isArray(payload) ? payload.sort(() => Math.random() > 0.5 ? -1 : 1) : [],
+export const [setPlayList, SET_PLAYLIST] = actionCreator2((payload, index = 0) => ({
+  playlist: Array.isArray(payload) ? payload.sort(() => Math.random() > 0.5 ? -1 : 1) : [],
+  index,
 }))
 
 export const [setTrack, SET_TRACK] = actionCreator2((track) => {
@@ -74,18 +65,14 @@ export const [setTrack, SET_TRACK] = actionCreator2((track) => {
   }
 })
 
-export const SKIP_TRACK = 'SKIP_TRACK'
-export const skipTrack = actionCreator((payload) => ({
-  type: SKIP_TRACK,
-  payload,
-}))
+export const [skipTrack, SKIP_TRACK] = actionCreator2()
 
 export const [setPage, SET_PAGE] = actionCreator2()
 
 export function reducer(state, action) {
   // console.log(action.type, state, action)
   switch (action.type) {
-      case SKIP_TRACK:
+    case SKIP_TRACK:
       state.playlist.index = action.payload
       return {
         ...state,
@@ -94,8 +81,8 @@ export function reducer(state, action) {
       return {
         ...state,
         playlist: {
-          playlist: action.payload,
-          index: 0,
+          playlist: action.playlist,
+          index: action.index,
         }
       }
     case SET_PAGE:
@@ -113,31 +100,20 @@ export function reducer(state, action) {
       ...state,
       fullscreen: action.payload
     }
-    case TOGGLE_FULLSCREEN:
     default:
       return state
   }
 }
 
 // new actions add here
-export const TOGGLE_FULLSCREEN = 'TOGGLE_FULLSCREEN'
-export const toggleFullScreen = actionCreator(() => {
+export const [toggleFullScreen, TOGGLE_FULLSCREEN] = actionCreator2(() => {
     toggleFullScreenBrowser()
       .then(res => setFullScreen(res))
+    return {}
+  }
+)
 
-    return {
-      type: TOGGLE_FULLSCREEN,
-    }
-  }
-)
-export const SET_FULLSCREEN = 'SET_FULLSCREEN'
-export const setFullScreen = actionCreator((enabled) => {
-    return {
-      type: SET_FULLSCREEN,
-      payload: !!enabled
-    }
-  }
-)
+export const [setFullScreen, SET_FULLSCREEN] = actionCreator2()
 
 document.addEventListener('fullscreenerror', () => setFullScreen(!!document.fullscreenElement))
 document.addEventListener('fullscreenchange', () => setFullScreen(!!document.fullscreenElement))
