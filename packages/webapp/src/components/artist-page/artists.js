@@ -1,9 +1,5 @@
 import { html, render as litRender } from '../../../node_modules/lit-html/lit-html.js'
 import { showPage } from '../../router.js'
-import { play } from '../radio/radio.js'
-import { setTrack } from '../../state-store.js'
-import { skipTrack } from '../../state-store.js'
-import { gatewayHost } from '../../settings.js'
 
 const artists = [
   {

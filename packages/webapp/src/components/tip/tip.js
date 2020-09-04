@@ -5,8 +5,6 @@ import { getAccount } from '../metamask-connection/metamask.js'
 import { getChainId } from '../metamask-connection/metamask.js'
 import { init as mmInit } from '../metamask-connection/metamask.js'
 import { classMap } from '../../../node_modules/lit-html/directives/class-map.js'
-import { toggleFullScreenBrowser } from '../../facade.js'
-import { toggleFullScreen } from '../../state-store.js'
 
 mmInit()
 

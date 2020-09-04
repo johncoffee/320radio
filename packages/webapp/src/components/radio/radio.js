@@ -4,7 +4,6 @@ import { setTrack } from '../../state-store.js'
 import { setPlayList } from '../../state-store.js'
 import { skipTrack } from '../../state-store.js'
 import { gatewayHost } from '../../settings.js'
-import { showPage } from '../../router.js'
 
 
 const myTemplate = ({ title, artist, mp3, skip, onPause,}) => html`

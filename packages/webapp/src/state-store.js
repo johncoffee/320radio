@@ -2,7 +2,7 @@
 // hacky import
 import { toggleFullScreenBrowser } from './facade.js'
 
-const { Subject, Observable, isObservable, pipe } = window.rxjs
+const { Subject } = window.rxjs
 const { startWith, scan } = window.rxjs.operators
 
 const initialState = {
