@@ -2,11 +2,11 @@
 // hacky import
 import { toggleFullScreenBrowser } from './facade.js'
 
-const { Subject } = window.rxjs
-const { startWith, scan } = window.rxjs.operators
+const { Subject, fromEvent, merge } = window.rxjs
+const { startWith, scan, debounceTime, map } = window.rxjs.operators
 
 const initialState = {
-  canFullScreen: window.outerHeight >= 768 && window.outerHeight < window.outerWidth, // TODO observe
+  canFullScreen: false,
   fullscreen: false,
   playlist: {
     playlist: [],
@@ -43,6 +43,8 @@ export function actionCreator2 (func) {
 
   return [action, func]
 }
+
+export const [setCanFullScreen, SET_CAN_FULLSCREEN] = actionCreator2()
 
 export const [setPlayList, SET_PLAYLIST] = actionCreator2((payload, index = 0) => ({
   playlist: Array.isArray(payload) ? payload.sort(() => Math.random() > 0.5 ? -1 : 1) : [],
@@ -100,6 +102,12 @@ export function reducer(state, action) {
       ...state,
       fullscreen: action.payload
     }
+
+    case SET_CAN_FULLSCREEN:
+      return {
+        ...state,
+        canFullScreen: action.payload,
+      }
     default:
       return state
   }
@@ -115,5 +123,18 @@ export const [toggleFullScreen, TOGGLE_FULLSCREEN] = actionCreator2(() => {
 
 export const [setFullScreen, SET_FULLSCREEN] = actionCreator2()
 
-document.addEventListener('fullscreenerror', () => setFullScreen(!!document.fullscreenElement))
-document.addEventListener('fullscreenchange', () => setFullScreen(!!document.fullscreenElement))
+merge(
+    fromEvent(document, 'fullscreenerror'),
+    fromEvent(document, 'fullscreenchange'),
+  )
+  .pipe(map( () => !!document.fullscreenElement) )
+  .subscribe(setFullScreen)
+
+fromEvent(window, 'resize')
+  .pipe(
+    map(evt => evt.target),
+    startWith(window),
+    debounceTime(100),
+    map(window => window.outerHeight >= 768 && window.outerHeight < window.outerWidth),
+  )
+  .subscribe(setCanFullScreen)
