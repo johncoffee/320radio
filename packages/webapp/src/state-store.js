@@ -42,6 +42,7 @@ export function actionCreator2 (func) {
   }
   const action = (...args) => {
     const actionObj = func.call(null, ...args)
+    console.assert(actionObj.type === undefined, `must not have field .type set`)
     actionObj.type = func
     // push it to the stream
     action$.next(actionObj)
@@ -57,8 +58,7 @@ export const setPlayList = actionCreator((payload) => ({
   payload: Array.isArray(payload) ? payload.sort(() => Math.random() > 0.5 ? -1 : 1) : [],
 }))
 
-export const SET_TRACK = 'SET_TRACK'
-export const setTrack = actionCreator((track) => {
+export const [setTrack, SET_TRACK] = actionCreator2((track) => {
 
   document.querySelector('.bgimg').style.backgroundImage = (track.coverImage) ? `url(${track.coverImage})` : ''
   if (track.meta && track.meta.coverCSS) {
@@ -70,8 +70,7 @@ export const setTrack = actionCreator((track) => {
   document.title = `${track.artist} - ${track.title} (at 320 radio)`
 
   return {
-    type: SET_TRACK,
-    payload: track
+    track
   }
 })
 
@@ -107,7 +106,7 @@ export function reducer(state, action) {
     case SET_TRACK:
       return {
         ...state,
-        track: action.payload
+        track: action.track
       }
     case SET_FULLSCREEN:
       return {
