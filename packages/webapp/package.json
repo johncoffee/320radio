@@ -5,7 +5,7 @@
   "repository": "n/a",
   "main": "index.js",
   "scripts": {
-    "start": "npx http-server -p 8000",
+    "start": "npx http-server -p 3000",
     "remove-node_modules": "git clean -qdfx --exclude=\"**/*.min.js\" --exclude=\"**/*.min.css\" --exclude=\"**/lit-html/**/*.js\"",
     "remove-meta": "rm *.json; rm *.md",
     "build": "npm ci --production && npm run remove-node_modules; npm run remove-meta",
