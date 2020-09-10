@@ -1,6 +1,7 @@
 // import { Subject, Observable, isObservable, pipe } from '../node_modules/rxjs/dist/esm/'
 // hacky import
 import { toggleFullScreenBrowser } from './facade.js'
+import { gatewayHost } from './settings.js'
 
 const { Subject, fromEvent, merge } = window.rxjs
 const { startWith, scan, debounceTime, map } = window.rxjs.operators
@@ -53,7 +54,7 @@ export const [setPlayList, SET_PLAYLIST] = actionCreator2((payload, index = 0) =
 
 export const [setTrack, SET_TRACK] = actionCreator2((track) => {
   const el = document.querySelector('.bgimg')
-  el.style.backgroundImage = (track.coverImage) ? `url("https://gateway.pinata.cloud/${track.coverImage}")` : 'none'
+  el.style.backgroundImage = (track.coverImage) ? `url("${gatewayHost}${track.coverImage}")` : 'none'
 
   if (typeof track.coverImageStyle === 'object') {
     Object.entries(track.coverImageStyle).forEach(([k,v]) => {
@@ -73,7 +74,6 @@ export const [skipTrack, SKIP_TRACK] = actionCreator2()
 export const [setPage, SET_PAGE] = actionCreator2()
 
 export function reducer(state, action) {
-  // console.log(action.type, state, action)
   switch (action.type) {
     case SKIP_TRACK:
       state.playlist.index = action.payload
@@ -99,6 +99,7 @@ export function reducer(state, action) {
         track: action.track
       }
     case SET_FULLSCREEN:
+      console.log(action.type, state, action)
       return {
       ...state,
       fullscreen: action.payload
