@@ -80,10 +80,10 @@ export async function playDefaultList () {
 
 function setBgVideo(enabled) {
   if (enabled) {
-    document.querySelector('.cover-video').setAttribute('hidden', '')
+    document.querySelector('.cover-video').removeAttribute('hidden')
   }
   else {
-    document.querySelector('.cover-video').removeAttribute('hidden')
+    document.querySelector('.cover-video').setAttribute('hidden', '')
   }
 }
 
