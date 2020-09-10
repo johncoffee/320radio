@@ -52,11 +52,12 @@ export const [setPlayList, SET_PLAYLIST] = actionCreator2((payload, index = 0) =
 }))
 
 export const [setTrack, SET_TRACK] = actionCreator2((track) => {
+  const el = document.querySelector('.bgimg')
+  el.style.backgroundImage = (track.coverImage) ? `url("https://gateway.pinata.cloud/${track.coverImage}")` : 'none'
 
-  document.querySelector('.bgimg').style.backgroundImage = (track.coverImage) ? `url(${track.coverImage})` : ''
-  if (track.meta && track.meta.coverCSS) {
-    Object.entries(track.meta.coverCSS).forEach(([k,v]) => {
-      document.querySelector('.bgimg').style[k] = v
+  if (typeof track.coverImageStyle === 'object') {
+    Object.entries(track.coverImageStyle).forEach(([k,v]) => {
+      el.style[k] = v
     })
   }
 
