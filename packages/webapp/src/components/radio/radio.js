@@ -23,11 +23,7 @@ const myTemplate = ({ title, artist, mp3, skip, onPause,}) => html`
 
 // TODO inject dispatcher
 export function connect (store) {
-  store.subscribe(({fullscreen}) => {
-    if (fullscreen) {
-      enableBgVideo()
-    }
-  })
+  store.subscribe(({fullscreen}) => setBgVideo(fullscreen))
 
   store.subscribe(s => {
     const skip = (skippedTrack) => {
@@ -82,8 +78,13 @@ export async function playDefaultList () {
   }
 }
 
-function enableBgVideo() {
-  document.querySelector('.cover-video').removeAttribute('hidden')
+function setBgVideo(enabled) {
+  if (enabled) {
+    document.querySelector('.cover-video').setAttribute('hidden', '')
+  }
+  else {
+    document.querySelector('.cover-video').removeAttribute('hidden')
+  }
 }
 
 export function render (track) {
