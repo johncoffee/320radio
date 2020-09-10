@@ -23,8 +23,6 @@ const myTemplate = ({ title, artist, mp3, skip, onPause,}) => html`
 
 // TODO inject dispatcher
 export function connect (store) {
-  store.subscribe(({fullscreen}) => setBgVideo(fullscreen))
-
   store.subscribe(s => {
     const skip = (skippedTrack) => {
       console.log('meh',skippedTrack)
@@ -75,15 +73,6 @@ export async function playDefaultList () {
   catch (e) {
     console.warn('failed getting playlist')
     console.warn(e)
-  }
-}
-
-function setBgVideo(enabled) {
-  if (enabled) {
-    document.querySelector('.cover-video').removeAttribute('hidden')
-  }
-  else {
-    document.querySelector('.cover-video').setAttribute('hidden', '')
   }
 }
 

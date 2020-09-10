@@ -1,3 +1,4 @@
+import * as bgVideo from './components/bg-video/bg-video.js'
 import * as radio from './components/radio/radio.js'
 import * as tip from './components/tip/tip.js'
 import * as intro from './components/intro-page/logo.js'
@@ -17,6 +18,7 @@ tip.connect(store)
 radio.connect(store)
 artists.connect(store)
 bottom.connect(store)
+bgVideo.connect(store)
 
 createRouter(store)
 
