@@ -7,7 +7,8 @@
     "deploy-radio": "ipfs-deploy packages/webapp -p pinata -O -C",
     "postdeploy-radio": "cd packages/webapp; git checkout . && npm i",
 
-    "deploy-media": "ipfs-deploy packages/media/tmp -p pinata -O -C",
+    "deploy-songs": "ipfs-deploy packages/media/tmp/songs -p pinata -O -C",
+    "deploy-assets": "ipfs-deploy packages/media/tmp/web-app-assets -p pinata -O -C",
 
     "postinstall": "lerna bootstrap"
   },

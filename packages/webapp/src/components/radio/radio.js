@@ -58,24 +58,6 @@ export function connect (store) {
 // super high level functions
 
 
-export async function playDefaultList () {
-  setPlayList([])
-  setTrack({title: "Loading...", artist: 'IPFS'})
-  try {
-    const res = await fetch("src/data/playlist.json")
-    const json = JSON.parse(await res.text()) // parse text because we dont know if the mime type would be set correct
-    if (!json[0]) {
-      return console.warn('playlist was empty!')
-    }
-    setPlayList(json)
-    setTrack(json[0])
-  }
-  catch (e) {
-    console.warn('failed getting playlist')
-    console.warn(e)
-  }
-}
-
 export function render (track) {
   litRender(myTemplate(track), document.querySelector('.radio-component'))
 }

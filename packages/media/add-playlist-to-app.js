@@ -31,9 +31,9 @@ function run () {
         }
       })
 
-    writeFileSync(join(__dirname, '../webapp/src/data/playlist.json'),
-      JSON.stringify(dataColumns, null, 2))
+    const plPath = join(__dirname, 'tmp/web-app-assets/playlist.json')
+    writeFileSync(plPath, JSON.stringify(dataColumns, null, 2))
 
-    console.log(`wrote ${dataColumns.length} songs to ` +join(__dirname, '../webapp/src/data/playlist.json'))
+    console.log(`wrote ${dataColumns.length} songs to ${plPath}`)
   })
 }
