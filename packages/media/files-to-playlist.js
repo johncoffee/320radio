@@ -14,6 +14,7 @@ const dataColumns = lines.filter(l => !!l)
   const [artist, title] = filename.split(' - ')
   const mp3 = `/ipfs/${hash}`
   return {
+    coverImage: "/ipfs/QmTkrWU7snLwQC8VG16GwMWJT82tYrFfb5CjHoVHJQL2xk",
     mp3,
     artist,
     title: title.replace(/\-\d+\.mp3$/,'')
