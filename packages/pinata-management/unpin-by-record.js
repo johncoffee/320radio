@@ -16,12 +16,14 @@ const pinata = pinataSDK(process.env.IPFS_DEPLOY_PINATA__API_KEY, process.env.IP
     status: 'pinned'
   })
 
-  console.log(`looking for _dnslink.${process.env.IPFS_DEPLOY_CLOUDFLARE__ZONE}`)
+  // const lookingFor = process.env.IPFS_DEPLOY_CLOUDFLARE__RECORD
+  const lookingFor = '_dnslink'
+  console.log(`looking for ${lookingFor}`)
 
   const p = list.rows
     .filter(v => v.metadata &&
       typeof v.metadata.name === 'string' &&
-      v.metadata.name.includes(`_dnslink.${process.env.IPFS_DEPLOY_CLOUDFLARE__ZONE}`)
+      v.metadata.name.includes(lookingFor)
     )
     .map(v => pinata.unpin(v.ipfs_pin_hash))
 
